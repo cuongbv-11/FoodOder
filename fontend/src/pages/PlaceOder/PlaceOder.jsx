@@ -1,28 +1,114 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./PlaceOder.css";
 import { StoreContext } from "../../Context/StoreContext";
 
 const PlaceOder = () => {
-  const { getTotalCartAmount } = useContext(StoreContext);
+  const { getTotalCartAmount, toke, food_list, cartItems, url } =
+    useContext(StoreContext);
+
+  const [data, setData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    street: "",
+    city: "",
+    state: "",
+    zipcode: "",
+    country: "",
+    phone: "",
+  });
+  const onChageHandler = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setData((data) => ({ ...data, [name]: value }));
+  };
+
+  const placeOrder = async (event) => {
+    event.preventDefault();
+    let orderItems = [];
+    food_list.map((item) => {
+      if (cartItems[item._id] > 0) {
+        let itemInfo = item;
+        itemInfo["quantity"] = cartItems[item._id];
+        orderItems.push(itemInfo);
+      }
+    });
+    console.log(orderItems);
+  };
+
   return (
-    <form className="place-order">
+    <form onSubmit={placeOrder} className="place-order">
       <div className="place-order-left">
         <p className="title">Delivery Information</p>
         <div className="multi-fields">
-          <input type="text" placeholder="First Name" />
-          <input type="text" placeholder="Last name" />
+          <input
+            name="firstName"
+            onChange={onChageHandler}
+            value={data.firstName}
+            type="text"
+            placeholder="First Name"
+          />
+          <input
+            name="lastName"
+            onChange={onChageHandler}
+            value={data.lastName}
+            type="text"
+            placeholder="Last name"
+          />
         </div>
-        <input type="Email" placeholder="Email address" />
-        <input type="text" placeholder="Street" />
+        <input
+          name="email"
+          onChange={onChageHandler}
+          value={data.email}
+          type="Email"
+          placeholder="Email address"
+        />
+        <input
+          name="street"
+          onChange={onChageHandler}
+          value={data.street}
+          type="text"
+          placeholder="Street"
+        />
         <div className="multi-fields">
-          <input type="text" placeholder="City" />
-          <input type="text" placeholder="State" />
+          <input
+            name="city"
+            onChange={onChageHandler}
+            value={data.city}
+            type="text"
+            placeholder="City"
+          />
+          <input
+            name="state"
+            onChange={onChageHandler}
+            value={data.state}
+            type="text"
+            placeholder="State"
+          />
         </div>
         <div className="multi-fields">
-          <input type="text" placeholder="Zip code" />
-          <input type="text" placeholder="Country" />
+          <input
+            name="zipcode"
+            onChange={onChageHandler}
+            value={data.zipcode}
+            type="text"
+            placeholder="Zip code"
+          />
+          <input
+            name="country"
+            onChange={onChageHandler}
+            value={data.country}
+            type="text"
+            placeholder="Country"
+          />
         </div>
-        <input type="text" placeholder="Phone" />
+        <input
+          name="phone"
+          onChange={onChageHandler}
+          value={data.phone}
+          type="text"
+          placeholder="Phone"
+        />
       </div>
       <div className="place-order-right">
         <div className="cart-total">
@@ -45,7 +131,7 @@ const PlaceOder = () => {
               </b>
             </div>
           </div>
-          <button>PROCEED TO PAY </button>
+          <button type="submit">PROCEED TO PAY </button>
         </div>
       </div>
     </form>
