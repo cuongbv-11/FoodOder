@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./PlaceOder.css";
 import { StoreContext } from "../../Context/StoreContext";
+import axios from "axios";
 
 const PlaceOder = () => {
-  const { getTotalCartAmount, toke, food_list, cartItems, url } =
+  const { getTotalCartAmount, token, food_list, cartItems, url } =
     useContext(StoreContext);
 
   const [data, setData] = useState({
@@ -33,7 +34,20 @@ const PlaceOder = () => {
         orderItems.push(itemInfo);
       }
     });
-    console.log(orderItems);
+    let orderData = {
+      address: data,
+      items: orderItems,
+      amount: getTotalCartAmount() + 2,
+    };
+    let response = await axios.post(url + "/api/order/place", orderData, {
+      headers: { token },
+    });
+    if (response.data.success) {
+      const { session_url } = response.data;
+      window.location.replace(session_url);
+    } else {
+      alert("Order failed");
+    }
   };
 
   return (
@@ -42,6 +56,7 @@ const PlaceOder = () => {
         <p className="title">Delivery Information</p>
         <div className="multi-fields">
           <input
+            required
             name="firstName"
             onChange={onChageHandler}
             value={data.firstName}
@@ -49,6 +64,7 @@ const PlaceOder = () => {
             placeholder="First Name"
           />
           <input
+            required
             name="lastName"
             onChange={onChageHandler}
             value={data.lastName}
@@ -57,6 +73,7 @@ const PlaceOder = () => {
           />
         </div>
         <input
+          required
           name="email"
           onChange={onChageHandler}
           value={data.email}
@@ -64,6 +81,7 @@ const PlaceOder = () => {
           placeholder="Email address"
         />
         <input
+          required
           name="street"
           onChange={onChageHandler}
           value={data.street}
@@ -72,6 +90,7 @@ const PlaceOder = () => {
         />
         <div className="multi-fields">
           <input
+            required
             name="city"
             onChange={onChageHandler}
             value={data.city}
@@ -79,6 +98,7 @@ const PlaceOder = () => {
             placeholder="City"
           />
           <input
+            required
             name="state"
             onChange={onChageHandler}
             value={data.state}
@@ -88,6 +108,7 @@ const PlaceOder = () => {
         </div>
         <div className="multi-fields">
           <input
+            required
             name="zipcode"
             onChange={onChageHandler}
             value={data.zipcode}
@@ -95,6 +116,7 @@ const PlaceOder = () => {
             placeholder="Zip code"
           />
           <input
+            required
             name="country"
             onChange={onChageHandler}
             value={data.country}
@@ -103,6 +125,7 @@ const PlaceOder = () => {
           />
         </div>
         <input
+          required
           name="phone"
           onChange={onChageHandler}
           value={data.phone}
