@@ -79,4 +79,26 @@ const userOrders = async (req, res) => {
     res.json({ success: false, message: "Error" });
   }
 };
-export { placeOrder, verifyOrder, userOrders };
+//danh sach data hong admin panel
+const listOrders = async (req, res) => {
+  try {
+    const orders = await orderModel.find({});
+    res.json({ success: true, data: orders });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: "Error" });
+  }
+};
+// API để cập nhật trạng thái đơn hàng
+const updateStatus = async (req, res) => {
+  try {
+    await orderModel.findByIdAndUpdate(req.body.orderId, {
+      status: req.body.status,
+    });
+    res.json({ success: true, message: "Trang thai" });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: "Error" });
+  }
+};
+export { placeOrder, verifyOrder, userOrders, listOrders, updateStatus };
