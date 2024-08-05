@@ -5,7 +5,7 @@ import { menu_list } from "../../assets/assets";
 const ExploreMenu = ({ category, setCategory }) => {
   return (
     <div className="explore-menu" id="explore-menu">
-      <h1>Explore our menu</h1>
+      <h1>Khám Phá Thực Đơn Của Chúng Tôi</h1>
       <p className="explore-menu-text"></p>
       <div className="explore-menu-list">
         {menu_list.map((item, index) => {
@@ -13,7 +13,7 @@ const ExploreMenu = ({ category, setCategory }) => {
             <div
               onClick={() =>
                 setCategory((prev) =>
-                  prev === item.menu_name ? "All" : item.menu_name
+                  prev === item.menu_name ? "Tất Cả" : item.menu_name
                 )
               }
               key={index}
@@ -22,7 +22,7 @@ const ExploreMenu = ({ category, setCategory }) => {
               <img
                 className={category === item.menu_name ? "active" : ""}
                 src={item.menu_image}
-                alt=""
+                alt={item.menu_name}
               />
               <p>{item.menu_name}</p>
             </div>

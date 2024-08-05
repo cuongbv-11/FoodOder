@@ -6,7 +6,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 // đặt hàng người dùng cho fontend
 const placeOrder = async (req, res) => {
-  const fontend_url = "http://localhost:5173";
+  const fontend_url = "http://localhost:5174";
 
   try {
     const newOrder = new orderModel({

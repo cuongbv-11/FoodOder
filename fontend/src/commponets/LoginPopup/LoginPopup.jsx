@@ -3,14 +3,16 @@ import "./LoginPopup.css";
 import { assets } from "../../assets/assets";
 import { StoreContext } from "../../Context/StoreContext";
 import axios from "axios";
+
 const LoginPopup = ({ setShowLogin }) => {
   const { url, setToken } = useContext(StoreContext);
-  const [currState, setCurrState] = useState("Login");
+  const [currState, setCurrState] = useState("Đăng Nhập");
   const [data, setData] = useState({
     name: "",
     email: "",
     password: "",
   });
+
   const onChangeHandler = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -20,7 +22,7 @@ const LoginPopup = ({ setShowLogin }) => {
   const onLogin = async (event) => {
     event.preventDefault();
     let newUrl = url;
-    if (currState === "Login") {
+    if (currState === "Đăng Nhập") {
       newUrl += "/api/user/login";
     } else {
       newUrl += "/api/user/register";
@@ -44,11 +46,11 @@ const LoginPopup = ({ setShowLogin }) => {
           <img
             onClick={() => setShowLogin(false)}
             src={assets.cross_icon}
-            alt=""
+            alt="Đóng"
           />
         </div>
         <div className="login-popup-inputs">
-          {currState === "Login" ? (
+          {currState === "Đăng Nhập" ? (
             <></>
           ) : (
             <input
@@ -56,7 +58,7 @@ const LoginPopup = ({ setShowLogin }) => {
               type="text"
               onChange={onChangeHandler}
               value={data.name}
-              placeholder="Your name"
+              placeholder="Tên của bạn"
               required
             />
           )}
@@ -65,7 +67,7 @@ const LoginPopup = ({ setShowLogin }) => {
             onChange={onChangeHandler}
             value={data.email}
             type="email"
-            placeholder="Your email"
+            placeholder="Email của bạn"
             required
           />
           <input
@@ -73,26 +75,31 @@ const LoginPopup = ({ setShowLogin }) => {
             onChange={onChangeHandler}
             value={data.password}
             type="password"
-            placeholder="Password"
+            placeholder="Mật khẩu"
             required
           />
         </div>
         <button type="submit">
-          {currState === "Sign Up" ? "Create account" : "Login"}
+          {currState === "Đăng Ký" ? "Tạo tài khoản" : "Đăng Nhập"}
         </button>
         <div className="login-popup-condition">
           <input type="checkbox" required />
-          <p>By continuing, I agree to the terms of use & privacy policy.</p>
-        </div>
-        {currState === "Login" ? (
           <p>
-            Create a new account?{" "}
-            <span onClick={() => setCurrState("Sign Up")}>Click here</span>
+            Bằng cách tiếp tục, tôi đồng ý với điều khoản sử dụng & chính sách
+            bảo mật.
+          </p>
+        </div>
+        {currState === "Đăng Nhập" ? (
+          <p>
+            Tạo tài khoản mới?{" "}
+            <span onClick={() => setCurrState("Đăng Ký")}>Nhấn vào đây</span>
           </p>
         ) : (
           <p>
-            Already have an account?{" "}
-            <span onClick={() => setCurrState("Login")}>Login here</span>
+            Đã có tài khoản?{" "}
+            <span onClick={() => setCurrState("Đăng Nhập")}>
+              Đăng nhập tại đây
+            </span>
           </p>
         )}
       </form>

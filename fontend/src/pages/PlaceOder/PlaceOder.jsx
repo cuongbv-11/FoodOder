@@ -19,7 +19,8 @@ const PlaceOder = () => {
     country: "",
     phone: "",
   });
-  const onChageHandler = (event) => {
+
+  const onChangeHandler = (event) => {
     const name = event.target.name;
     const value = event.target.value;
     setData((data) => ({ ...data, [name]: value }));
@@ -47,7 +48,7 @@ const PlaceOder = () => {
       const { session_url } = response.data;
       window.location.replace(session_url);
     } else {
-      alert("Order failed");
+      alert("Đặt hàng thất bại");
     }
   };
 
@@ -64,108 +65,108 @@ const PlaceOder = () => {
   return (
     <form onSubmit={placeOrder} className="place-order">
       <div className="place-order-left">
-        <p className="title">Delivery Information</p>
+        <p className="title">Thông tin giao hàng</p>
         <div className="multi-fields">
           <input
             required
             name="firstName"
-            onChange={onChageHandler}
+            onChange={onChangeHandler}
             value={data.firstName}
             type="text"
-            placeholder="First Name"
+            placeholder="Tên"
           />
           <input
             required
             name="lastName"
-            onChange={onChageHandler}
+            onChange={onChangeHandler}
             value={data.lastName}
             type="text"
-            placeholder="Last name"
+            placeholder="Họ"
           />
         </div>
         <input
           required
           name="email"
-          onChange={onChageHandler}
+          onChange={onChangeHandler}
           value={data.email}
           type="Email"
-          placeholder="Email address"
+          placeholder="Địa chỉ email"
         />
         <input
           required
           name="street"
-          onChange={onChageHandler}
+          onChange={onChangeHandler}
           value={data.street}
           type="text"
-          placeholder="Street"
+          placeholder="Đường"
         />
         <div className="multi-fields">
           <input
             required
             name="city"
-            onChange={onChageHandler}
+            onChange={onChangeHandler}
             value={data.city}
             type="text"
-            placeholder="City"
+            placeholder="Thành phố"
           />
           <input
             required
             name="state"
-            onChange={onChageHandler}
+            onChange={onChangeHandler}
             value={data.state}
             type="text"
-            placeholder="State"
+            placeholder="Bang"
           />
         </div>
         <div className="multi-fields">
           <input
             required
             name="zipcode"
-            onChange={onChageHandler}
+            onChange={onChangeHandler}
             value={data.zipcode}
             type="text"
-            placeholder="Zip code"
+            placeholder="Mã bưu điện"
           />
           <input
             required
             name="country"
-            onChange={onChageHandler}
+            onChange={onChangeHandler}
             value={data.country}
             type="text"
-            placeholder="Country"
+            placeholder="Quốc gia"
           />
         </div>
         <input
           required
           name="phone"
-          onChange={onChageHandler}
+          onChange={onChangeHandler}
           value={data.phone}
           type="text"
-          placeholder="Phone"
+          placeholder="Số điện thoại"
         />
       </div>
       <div className="place-order-right">
         <div className="cart-total">
-          <h2>Cart Totals</h2>
+          <h2>Tổng giỏ hàng</h2>
           <div>
             <div className="cart-total-details">
-              <p>Subtotal</p>
+              <p>Tổng phụ</p>
               <p>${getTotalCartAmount()}</p>
             </div>
             <hr />
             <div className="cart-total-details">
-              <p>Delivery Fee</p>
+              <p>Phí vận chuyển</p>
               <p>${getTotalCartAmount() === 0 ? 0 : 2}</p>
             </div>
             <hr />
             <div className="cart-total-details">
-              <b>Total</b>
+              <b>Tổng cộng</b>
               <b>
                 ${getTotalCartAmount() === 0 ? 0 : getTotalCartAmount() + 2}
               </b>
             </div>
           </div>
-          <button type="submit">PROCEED TO PAY </button>
+          <button type="submit">TIẾN HÀNH THANH TOÁN</button>
         </div>
       </div>
     </form>

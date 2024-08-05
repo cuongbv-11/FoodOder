@@ -20,7 +20,7 @@ const Navbar = ({ setShowLogin }) => {
   return (
     <div className="navbar">
       <Link to="/">
-        <img src={assets.logo1} alt="" className="logo" />
+        <img src={assets.logo1} alt="Logo" className="logo" />
       </Link>
       <ul className="navbar-menu">
         <Link
@@ -42,38 +42,38 @@ const Navbar = ({ setShowLogin }) => {
           onClick={() => setMenu("mobile")}
           className={menu === "mobile" ? "active" : ""}
         >
-          Mobile App
+          Ứng Dụng Di Động
         </a>
         <a
           href="#footer"
           onClick={() => setMenu("contact-us")}
           className={menu === "contact-us" ? "active" : ""}
         >
-          Contact us
+          Liên Hệ
         </a>
       </ul>
       <div className="navbar-right">
-        <img src={assets.search_icon} alt="" />
-        <div className="navbar-searchh-icon">
+        <img src={assets.search_icon} alt="Tìm kiếm" />
+        <div className="navbar-search-icon">
           <Link to="/cart">
-            <img src={assets.basket_icon} alt="" />
+            <img src={assets.basket_icon} alt="Giỏ hàng" />
           </Link>
           <div className={getTotalCartAmount() === 0 ? "" : "dot"}></div>
         </div>
         {!token ? (
-          <button onClick={() => setShowLogin(true)}>singIn</button>
+          <button onClick={() => setShowLogin(true)}>Đăng Nhập</button>
         ) : (
           <div className="navbar-profile">
-            <img src={assets.profile_icon} alt="" />
+            <img src={assets.profile_icon} alt="Hồ sơ" />
             <ul className="nav-profile-dropdown">
               <li onClick={() => navigate("/myorders")}>
-                <img src={assets.bag_icon} alt="" />
-                <p>Orders</p>
+                <img src={assets.bag_icon} alt="Đơn hàng" />
+                <p>Đơn hàng</p>
               </li>
               <hr />
               <li onClick={logout}>
-                <img src={assets.logout_icon} alt="" />
-                <p>Logout</p>
+                <img src={assets.logout_icon} alt="Đăng xuất" />
+                <p>Đăng xuất</p>
               </li>
             </ul>
           </div>
